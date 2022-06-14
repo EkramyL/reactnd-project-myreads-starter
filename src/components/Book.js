@@ -26,9 +26,9 @@ const Book = (props) => {
         </div>
       </div>
       <div className="book-title">{props.book.title}</div>
-      <div className="book-authors">{props.book.authers}</div>
+      <div className="book-authors">{props.book.authors}</div>
       {console.log(props.book.imageLinks.smallThumbnail)}
-      {console.log(thumb)}
+      {console.log(props.book.authors)}
     </div>
   );
 };
