@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const SearchBooks = (props) => {
   const [query, setQuery] = useState('');
-  const [searchedBooks, setSearchedBooks] = useState('');
+  const [searchedBooks, setSearchedBooks] = useState([]);
   const handleQuery = (query) => {
     setQuery(query.trim());
     // async() = () => {
@@ -16,10 +16,12 @@ const SearchBooks = (props) => {
       const searchedBooks = await BooksAPI.search(query);
       console.log('query', query);
       console.log('searchedBooks', searchedBooks);
-      setSearchedBooks(searchedBooks);
+      query === '' ? setSearchedBooks([]) : setSearchedBooks(searchedBooks);
     };
     fetchSearchedBooks();
   };
+
+  const searchInfo = `Searh our Books by the author or The Book name`;
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -38,12 +40,13 @@ const SearchBooks = (props) => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {searchedBooks.length > 0 &&
-            searchedBooks.map((book) => (
-              <li key={book.id}>
-                <Book book={book} changeShelf={props.changeShelf} />
-              </li>
-            ))}
+          {query.length === 0
+            ? searchInfo
+            : searchedBooks.map((book) => (
+                <li key={book.id}>
+                  <Book book={book} changeShelf={props.changeShelf} />
+                </li>
+              ))}
         </ol>
         <h3>{searchedBooks.length}</h3>
       </div>
