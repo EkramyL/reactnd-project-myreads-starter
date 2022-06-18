@@ -15,7 +15,7 @@ const Book = (props) => {
         />
         <div className="book-shelf-changer">
           <select
-            defaultValue={props.book.shelf}
+            defaultValue={props.book.shelf || 'none'}
             onChange={(e) => {
               // console.log(props.book.id);
               // console.log(e.target.value);
