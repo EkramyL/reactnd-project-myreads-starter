@@ -16,9 +16,9 @@ const SearchBooks = (props) => {
       const searchedBooks = await BooksAPI.search(query);
       console.log('query', query);
       console.log('searchedBooks', searchedBooks);
+      setSearchedBooks(searchedBooks);
     };
     fetchSearchedBooks();
-    setSearchedBooks(searchedBooks);
   };
   return (
     <div className="search-books">
