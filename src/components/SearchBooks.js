@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import Book from './Book';
 import * as BooksAPI from '../BooksAPI';
 import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 
 const SearchBooks = (props) => {
   const [query, setQuery] = useState('');
   const [searchedBooks, setSearchedBooks] = useState([]);
+
   const handleQuery = (query) => {
     setQuery(query.trim());
-    // async() = () => {
-    //   const searchedBooks = await BooksAPI.search(query);
-    //   console.log('searchedBooks', searchedBooks.results);
-    // };
+
     const fetchSearchedBooks = async () => {
-      const searchedBooks = await BooksAPI.search(query);
-      console.log('query', query);
-      console.log('searchedBooks', searchedBooks);
+      let searchedBooks;
+      if (query !== '') {
+        searchedBooks = await BooksAPI.search(query);
+      }
+
       query === '' ? setSearchedBooks([]) : setSearchedBooks(searchedBooks);
     };
     fetchSearchedBooks();
@@ -48,11 +49,13 @@ const SearchBooks = (props) => {
                 </li>
               ))}
         </ol>
-        <h3>{searchedBooks.length}</h3>
       </div>
       <h2>{query}</h2>
     </div>
   );
+};
+SearchBooks.propTypes = {
+  changeShelf: propTypes.func.isRequired,
 };
 
 export default SearchBooks;

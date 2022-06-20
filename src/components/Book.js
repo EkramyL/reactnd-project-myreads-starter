@@ -35,8 +35,6 @@ const Book = (props) => {
       </div>
       <div className="book-title">{props.book.title}</div>
       <div className="book-authors">{props.book.authors}</div>
-      {/* {console.log(props.book.imageLinks.smallThumbnail)}
-      {console.log(props.book.authors)} */}
     </div>
   );
 };

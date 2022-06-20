@@ -1,35 +1,11 @@
 import React from 'react';
-// import * as BooksAPI from '../BooksAPI';
+
 import { Link } from 'react-router-dom';
 import Shelf from './Shelf';
+import propTypes from 'prop-types';
 const Main = (props) => {
   const { currentlyReading, wantToRead, read } = props;
-  //   const [currentlyReading, setCurrentlyReading] = useState([]);
-  //   const [wantToRead, setWantToRead] = useState([]);
-  //   const [read, setRead] = useState([]);
-  //   const [changed, setChanged] = useState(false);
 
-  //   useEffect(
-  //     () => {
-  //       const fetchBooks = async () => {
-  //         const books = await BooksAPI.getAll();
-  //         // setBooks(books);
-  //         const currentlyReadingBooks = books.filter(
-  //           (book) => book.shelf === 'currentlyReading'
-  //         );
-  //         setCurrentlyReading(currentlyReadingBooks);
-  //         const wantToReadBooks = books.filter(
-  //           (book) => book.shelf === 'wantToRead'
-  //         );
-  //         setWantToRead(wantToReadBooks);
-  //         const readBooks = books.filter((book) => book.shelf === 'read');
-  //         setRead(readBooks);
-  //       };
-
-  //       fetchBooks();
-  //     },
-  //     [changed]
-  //   );
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -58,9 +34,14 @@ const Main = (props) => {
       <Link to="/search" className="open-search">
         <button onClick={() => {}}>Add a book</button>
       </Link>
-      {/* <link to="/search" className="open-search" /> */}
     </div>
   );
 };
 
+Main.propTypes = {
+  currentlyReading: propTypes.array.isRequired,
+  wantToRead: propTypes.array.isRequired,
+  read: propTypes.array.isRequired,
+  changeShelf: propTypes.func.isRequired,
+};
 export default Main;
