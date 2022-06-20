@@ -89,7 +89,14 @@ const App = () => {
           <Route
             path="/search"
             exact
-            element={<SearchBooks changeShelf={changeShelf} />}
+            element={
+              <SearchBooks
+                changeShelf={changeShelf}
+                currentlyReading={currentlyReading}
+                wantToRead={wantToRead}
+                read={read}
+              />
+            }
           />
         </Routes>
       }

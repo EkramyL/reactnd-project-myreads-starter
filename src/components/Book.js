@@ -2,6 +2,20 @@ import React from 'react';
 
 const Book = (props) => {
   const thumb = props.book.imageLinks.smallThumbnail;
+  let shelfValue;
+
+  // if (
+  //   props.book.shelf !== 'currentlyReading' ||
+  //   props.book.shelf !== 'wantToRead' ||
+  //   props.book.shelf !== 'read'
+  // ) {
+  //   props.book.shelf = 'none';
+  // }
+
+  props.book.hasOwnProperty('shelf')
+    ? (shelfValue = props.book.shelf)
+    : (shelfValue = 'none');
+
   return (
     <div className="book">
       <div className="book-top">
@@ -15,7 +29,7 @@ const Book = (props) => {
         />
         <div className="book-shelf-changer">
           <select
-            defaultValue={props.book.shelf || 'none'}
+            defaultValue={shelfValue}
             onChange={(e) => {
               // console.log(props.book.id);
               // console.log(e.target.value);

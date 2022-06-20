@@ -7,22 +7,50 @@ import propTypes from 'prop-types';
 const SearchBooks = (props) => {
   const [query, setQuery] = useState('');
   const [searchedBooks, setSearchedBooks] = useState([]);
+  const categorizedBooks = [
+    ...props.currentlyReading,
+    ...props.wantToRead,
+    ...props.read,
+  ];
 
+  // console.log('categorizedBooks', categorizedBooks);
   const handleQuery = (query) => {
     setQuery(query.trim());
 
     const fetchSearchedBooks = async () => {
       let searchedBooks;
+      let finalList;
       if (query !== '') {
-        searchedBooks = await BooksAPI.search(query);
+        try {
+          searchedBooks = await BooksAPI.search(query);
+
+          let newSearchBooks = searchedBooks.filter(
+            (searchedBook) =>
+              !categorizedBooks.find(({ id }) => searchedBook.id === id)
+          );
+          let newcatBooks = categorizedBooks.filter((categorizedBook) =>
+            searchedBooks.find(({ id }) => categorizedBook.id === id)
+          );
+          finalList = [...newSearchBooks, ...newcatBooks];
+          // newSearchBooks.filter((book) => book !== undefined);
+
+          console.log('newSearchBooks', newSearchBooks);
+          console.log('newcatBooks', newcatBooks);
+          // let finalSearchBooks = [...newSearchBooks];
+        } catch (err) {
+          console.log(err);
+        }
       }
 
-      query === '' ? setSearchedBooks([]) : setSearchedBooks(searchedBooks);
+      query.length > 0 && searchedBooks.length > 0
+        ? setSearchedBooks(finalList)
+        : setSearchedBooks([]);
     };
     fetchSearchedBooks();
   };
 
   const searchInfo = `Searh our Books by the author or The Book name`;
+  const noBook = `No Book was found search another book`;
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -41,16 +69,17 @@ const SearchBooks = (props) => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {query.length === 0
+          {query === ''
             ? searchInfo
-            : searchedBooks.map((book) => (
+            : searchedBooks.length > 0
+            ? searchedBooks.map((book) => (
                 <li key={book.id}>
                   <Book book={book} changeShelf={props.changeShelf} />
                 </li>
-              ))}
+              ))
+            : noBook}
         </ol>
       </div>
-      <h2>{query}</h2>
     </div>
   );
 };
