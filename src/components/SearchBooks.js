@@ -14,8 +14,8 @@ const SearchBooks = (props) => {
   ];
 
   const handleQuery = (query) => {
-    setQuery(query.trim());
-
+    setQuery(query.trimLeft());
+    console.log(query);
     const fetchSearchedBooks = async () => {
       let searchedBooks;
       let finalList;
