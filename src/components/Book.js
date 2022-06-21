@@ -4,14 +4,6 @@ const Book = (props) => {
   const thumb = props.book.imageLinks.smallThumbnail;
   let shelfValue;
 
-  // if (
-  //   props.book.shelf !== 'currentlyReading' ||
-  //   props.book.shelf !== 'wantToRead' ||
-  //   props.book.shelf !== 'read'
-  // ) {
-  //   props.book.shelf = 'none';
-  // }
-
   props.book.hasOwnProperty('shelf')
     ? (shelfValue = props.book.shelf)
     : (shelfValue = 'none');
@@ -31,9 +23,6 @@ const Book = (props) => {
           <select
             defaultValue={shelfValue}
             onChange={(e) => {
-              // console.log(props.book.id);
-              // console.log(e.target.value);
-
               props.changeShelf(props.book, e.target.value);
             }}
           >

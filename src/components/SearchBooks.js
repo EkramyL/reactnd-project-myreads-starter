@@ -13,7 +13,6 @@ const SearchBooks = (props) => {
     ...props.read,
   ];
 
-  // console.log('categorizedBooks', categorizedBooks);
   const handleQuery = (query) => {
     setQuery(query.trim());
 
@@ -32,11 +31,6 @@ const SearchBooks = (props) => {
             searchedBooks.find(({ id }) => categorizedBook.id === id)
           );
           finalList = [...newSearchBooks, ...newcatBooks];
-          // newSearchBooks.filter((book) => book !== undefined);
-
-          console.log('newSearchBooks', newSearchBooks);
-          console.log('newcatBooks', newcatBooks);
-          // let finalSearchBooks = [...newSearchBooks];
         } catch (err) {
           console.log(err);
         }
