@@ -1,7 +1,16 @@
 import React from 'react';
 
 const Book = (props) => {
-  const thumb = props.book.imageLinks.smallThumbnail;
+  // const thumb = props.book.imageLinks.smallThumbnail;
+  let thumb =
+    props.book.hasOwnProperty('imageLinks') &&
+    props.book.imageLinks.hasOwnProperty('smallThumbnail')
+      ? props.book.imageLinks.smallThumbnail
+      : '';
+  let bookTitle = props.book.hasOwnProperty('title') ? props.book.title : '';
+  let bookAuthor = props.book.hasOwnProperty('authors')
+    ? props.book.authors
+    : '';
   let shelfValue;
 
   props.book.hasOwnProperty('shelf')
@@ -36,8 +45,8 @@ const Book = (props) => {
           </select>
         </div>
       </div>
-      <div className="book-title">{props.book.title}</div>
-      <div className="book-authors">{props.book.authors}</div>
+      <div className="book-title">{bookTitle}</div>
+      <div className="book-authors">{bookAuthor}</div>
     </div>
   );
 };
